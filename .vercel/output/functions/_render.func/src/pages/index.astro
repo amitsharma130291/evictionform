@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import TrustSignals from '../components/TrustSignals.astro';
+import FormTeaser from '../components/FormTeaser.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<Base
+  title="Free Eviction Notice Generator | EvictionForm"
+  description="Generate a free, state-compliant eviction notice in minutes. Download as PDF for $14.99. Covers all 50 US states."
+>
+  <Nav />
+  <main>
+    <Hero />
+    <HowItWorks />
+    <TrustSignals />
+    <FormTeaser />
+  </main>
+  <section class="py-section-y bg-brand-surface-alt">
+    <div class="mx-auto max-w-layout px-6">
+      <div class="text-center mb-10">
+        <h2 class="font-heading text-h2 font-semibold text-brand-heading mb-3">Landlord Legal Guides</h2>
+        <p class="font-body text-body-base text-brand-muted">State-specific guides written for US landlords — practical, accurate, attorney-reviewed.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/non-renewal-lease-letter/" class="group flex flex-col gap-3 p-card-pad bg-brand-surface border border-brand-border rounded-lg shadow-sm hover:shadow-card-hover transition-shadow duration-200 no-underline">
+          <h3 class="font-heading text-h3 font-semibold text-brand-heading group-hover:text-brand-cta transition-colors duration-200">Non-Renewal Lease Letter</h3>
+          <p class="font-body text-body-base text-brand-body">How to legally notify your tenant that their lease will not be renewed — with state-specific notice periods and templates.</p>
+          <span class="font-heading text-label font-semibold text-brand-cta mt-auto">Read Guide →</span>
+        </a>
+        <a href="/non-renewal-lease-letter/template/" class="group flex flex-col gap-3 p-card-pad bg-brand-surface border border-brand-border rounded-lg shadow-sm hover:shadow-card-hover transition-shadow duration-200 no-underline">
+          <h3 class="font-heading text-h3 font-semibold text-brand-heading group-hover:text-brand-cta transition-colors duration-200">Non-Renewal Letter Template</h3>
+          <p class="font-body text-body-base text-brand-body">A printable, court-tested non-renewal lease letter template with a field-by-field guide and pre-serve checklist.</p>
+          <span class="font-heading text-label font-semibold text-brand-cta mt-auto">Read Guide →</span>
+        </a>
+        <a href="/non-renewal-lease-letter/to-tenant/" class="group flex flex-col gap-3 p-card-pad bg-brand-surface border border-brand-border rounded-lg shadow-sm hover:shadow-card-hover transition-shadow duration-200 no-underline">
+          <h3 class="font-heading text-h3 font-semibold text-brand-heading group-hover:text-brand-cta transition-colors duration-200">Non-Renewal Letter to Tenant</h3>
+          <p class="font-body text-body-base text-brand-body">Exact wording, tone guidance, and delivery methods for writing a non-renewal letter addressed directly to your tenant.</p>
+          <span class="font-heading text-label font-semibold text-brand-cta mt-auto">Read Guide →</span>
+        </a>
+        <a href="/eviction-notice/squatters/" class="group flex flex-col gap-3 p-card-pad bg-brand-surface border border-brand-border rounded-lg shadow-sm hover:shadow-card-hover transition-shadow duration-200 no-underline">
+          <h3 class="font-heading text-h3 font-semibold text-brand-heading group-hover:text-brand-cta transition-colors duration-200">Eviction Notice for Squatters</h3>
+          <p class="font-body text-body-base text-brand-body">How to legally remove a squatter — including the squatter vs. trespasser distinction, police involvement, and adverse possession myths.</p>
+          <span class="font-heading text-label font-semibold text-brand-cta mt-auto">Read Guide →</span>
+        </a>
+        <a href="/eviction-notice/non-payment-of-rent/" class="group flex flex-col gap-3 p-card-pad bg-brand-surface border border-brand-border rounded-lg shadow-sm hover:shadow-card-hover transition-shadow duration-200 no-underline">
+          <h3 class="font-heading text-h3 font-semibold text-brand-heading group-hover:text-brand-cta transition-colors duration-200">Eviction Notice: Non-Payment of Rent</h3>
+          <p class="font-body text-body-base text-brand-body">The correct notice type, state-specific deadlines, and common mistakes that void a pay-or-quit notice before you even file.</p>
+          <span class="font-heading text-label font-semibold text-brand-cta mt-auto">Read Guide →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</Base>

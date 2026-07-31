@@ -1,0 +1,51 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/generate-pdf\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/eviction-notice\\/non-payment-of-rent\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/eviction-notice\\/squatters\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/generate\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/non-renewal-lease-letter\\/template\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/non-renewal-lease-letter\\/to-tenant\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/non-renewal-lease-letter\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/$",
+			"dest": "_render"
+		}
+	]
+}
