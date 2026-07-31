@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+const title = 'Contact Us | EvictionNoticeGenerator.com';
+const description = 'Get in touch with the EvictionNoticeGenerator.com team.';
+---
+<Base {title} {description}>
+  <main class="bg-brand-bg py-section-y">
+    <div class="max-w-content mx-auto px-6">
+      <h1 class="font-heading text-h1 font-bold text-brand-heading mb-4">Contact Us</h1>
+      <p class="font-body text-body-lg text-brand-body mb-10">Have a question or feedback? We'd love to hear from you.</p>
+
+      <form id="contact-form" class="space-y-6">
+        <div>
+          <label for="name" class="font-body text-small font-semibold text-brand-heading block mb-1">Your Name</label>
+          <input type="text" id="name" name="name" required placeholder="e.g. John Smith"
+            class="w-full border border-brand-border rounded-md px-4 py-3 font-body text-body-base text-brand-heading bg-white focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta transition-colors duration-200" />
+        </div>
+        <div>
+          <label for="email" class="font-body text-small font-semibold text-brand-heading block mb-1">Your Email</label>
+          <input type="email" id="email" name="email" required placeholder="e.g. john@example.com"
+            class="w-full border border-brand-border rounded-md px-4 py-3 font-body text-body-base text-brand-heading bg-white focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta transition-colors duration-200" />
+        </div>
+        <div>
+          <label for="subject" class="font-body text-small font-semibold text-brand-heading block mb-1">Subject</label>
+          <input type="text" id="subject" name="subject" required placeholder="e.g. Question about my notice"
+            class="w-full border border-brand-border rounded-md px-4 py-3 font-body text-body-base text-brand-heading bg-white focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta transition-colors duration-200" />
+        </div>
+        <div>
+          <label for="message" class="font-body text-small font-semibold text-brand-heading block mb-1">Message</label>
+          <textarea id="message" name="message" required rows="6" placeholder="Your message..."
+            class="w-full border border-brand-border rounded-md px-4 py-3 font-body text-body-base text-brand-heading bg-white focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta transition-colors duration-200 resize-y"></textarea>
+        </div>
+        <button type="submit" id="submit-btn"
+          class="inline-flex items-center gap-2 px-btn-x py-btn-y bg-brand-cta hover:bg-brand-cta-dark text-white font-heading text-label font-semibold rounded-md shadow-md transition-colors duration-200">
+          Send Message
+        </button>
+        <p id="form-success" class="hidden text-brand-cta font-semibold font-body">✓ Message sent! We'll get back to you soon.</p>
+        <p id="form-error" class="hidden text-red-500 font-body text-small">Something went wrong. Please try again or email us directly.</p>
+      </form>
+    </div>
+  </main>
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const success = document.getElementById('form-success')!;
+    const error = document.getElementById('form-error')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      const data = new FormData(form);
+      try {
+        const res = await fetch('/api/contact', { method: 'POST', body: data });
+        if (res.ok) {
+          form.reset();
+          success.classList.remove('hidden');
+          error.classList.add('hidden');
+        } else {
+          throw new Error('Failed');
+        }
+      } catch {
+        error.classList.remove('hidden');
+        success.classList.add('hidden');
+      } finally {
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</Base>
