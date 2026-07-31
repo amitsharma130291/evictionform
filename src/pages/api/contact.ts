@@ -16,17 +16,14 @@ export const POST: APIRoute = async ({ request }) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        type: 'OAuth2',
-        user: 'amitsharma00261@gmail.com',
-        clientId: import.meta.env.GMAIL_CLIENT_ID,
-        clientSecret: import.meta.env.GMAIL_CLIENT_SECRET,
-        refreshToken: import.meta.env.GMAIL_REFRESH_TOKEN,
+        user: import.meta.env.GMAIL_USER,
+        pass: import.meta.env.GMAIL_APP_PASSWORD,
       },
     });
 
     await transporter.sendMail({
-      from: '"EvictionNoticeGenerator.com" <amitsharma00261@gmail.com>',
-      to: 'amitsharma00261@gmail.com',
+      from: `"EvictionNoticeGenerator.com" <${import.meta.env.GMAIL_USER}>`,
+      to: import.meta.env.GMAIL_USER,
       replyTo: email,
       subject: `[Contact] ${subject}`,
       text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`,
