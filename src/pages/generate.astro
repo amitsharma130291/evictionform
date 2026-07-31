@@ -124,10 +124,12 @@ const stateDataJson = JSON.stringify(stateData);
               <div>
                 <label for="landlordName" class="block font-body text-small font-medium text-brand-heading mb-1">Full Name *</label>
                 <input type="text" id="landlordName" placeholder="John Smith" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+                <p id="landlordName-error" class="text-red-500 text-small mt-1 hidden">Please enter the full landlord or property owner name</p>
               </div>
               <div>
                 <label for="landlordAddress" class="block font-body text-small font-medium text-brand-heading mb-1">Mailing Address *</label>
                 <input type="text" id="landlordAddress" placeholder="123 Main St, City, State ZIP" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+                <p id="landlordAddress-error" class="text-red-500 text-small mt-1 hidden">Please enter a complete mailing address (e.g. 123 Main St, City, CA 90001)</p>
               </div>
             </div>
           </div>
@@ -140,6 +142,7 @@ const stateDataJson = JSON.stringify(stateData);
             <div>
               <label for="tenantName" class="block font-body text-small font-medium text-brand-heading mb-1">Full Name(s) *</label>
               <input type="text" id="tenantName" placeholder="Jane Doe and John Doe" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+              <p id="tenantName-error" class="text-red-500 text-small mt-1 hidden">Please enter the full tenant name(s)</p>
             </div>
           </div>
 
@@ -152,10 +155,12 @@ const stateDataJson = JSON.stringify(stateData);
               <div>
                 <label for="propertyAddress" class="block font-body text-small font-medium text-brand-heading mb-1">Street Address *</label>
                 <input type="text" id="propertyAddress" placeholder="456 Oak Ave, Apt 2B" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+                <p id="propertyAddress-error" class="text-red-500 text-small mt-1 hidden">Please enter a complete street address (e.g. 123 Main Street)</p>
               </div>
               <div>
                 <label for="cityStateZip" class="block font-body text-small font-medium text-brand-heading mb-1">City, State, ZIP *</label>
                 <input type="text" id="cityStateZip" placeholder="Austin, TX 78701" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+                <p id="cityStateZip-error" class="text-red-500 text-small mt-1 hidden">Please enter City, State ZIP (e.g. Los Angeles, CA 90001)</p>
               </div>
             </div>
           </div>
@@ -304,6 +309,43 @@ const stateDataJson = JSON.stringify(stateData);
   const downloadBtnText = document.getElementById('download-btn-text');
 
   let currentStep = 1;
+
+  // ── Field error elements ────────────────────────────────────────────────
+  const landlordNameEl = document.getElementById('landlordName');
+  const landlordNameErr = document.getElementById('landlordName-error');
+  const landlordAddressEl = document.getElementById('landlordAddress');
+  const landlordAddressErr = document.getElementById('landlordAddress-error');
+  const tenantNameEl = document.getElementById('tenantName');
+  const tenantNameErr = document.getElementById('tenantName-error');
+  const propertyAddressEl = document.getElementById('propertyAddress');
+  const propertyAddressErr = document.getElementById('propertyAddress-error');
+  const cityStateZipEl = document.getElementById('cityStateZip');
+  const cityStateZipErr = document.getElementById('cityStateZip-error');
+
+  // ── Field validator helper ──────────────────────────────────────────────
+  function validateField(input, errorEl, rule) {
+    const val = input.value.trim();
+    const valid = rule(val);
+    if (valid) {
+      input.classList.remove('border-red-500');
+      input.classList.add('border-brand-border');
+      errorEl.classList.add('hidden');
+    } else {
+      input.classList.add('border-red-500');
+      input.classList.remove('border-brand-border');
+      errorEl.classList.remove('hidden');
+    }
+    return valid;
+  }
+
+  // ── Validation rules ────────────────────────────────────────────────────
+  const rules = {
+    landlordName:    (v) => v.length >= 3,
+    landlordAddress: (v) => v.length >= 10 && /\d/.test(v),
+    tenantName:      (v) => v.length >= 3,
+    propertyAddress: (v) => v.length >= 10 && /\d/.test(v),
+    cityStateZip:    (v) => v.length >= 5 && (v.includes(',') || /\d{5}/.test(v)),
+  };
 
   // ── Populate state dropdown ─────────────────────────────────────────────
   STATE_DATA.sort((a, b) => a.name.localeCompare(b.name)).forEach((s) => {
@@ -473,17 +515,30 @@ This notice is given pursuant to ${statute}.`;
 
   function validateStep2() {
     const data = collectFormData();
-    const required = ['landlordName', 'landlordAddress', 'tenantName', 'propertyAddress', 'cityStateZip', 'noticeDate'];
-    for (const id of required) {
-      const el = document.getElementById(id);
-      if (!el.value.trim()) {
-        el.focus();
-        el.classList.add('border-brand-error');
-        alert('Please fill in all required fields.');
-        return false;
-      }
-      el.classList.remove('border-brand-error');
+
+    // Validate the 5 address fields with inline errors
+    const v1 = validateField(landlordNameEl,    landlordNameErr,    rules.landlordName);
+    const v2 = validateField(landlordAddressEl, landlordAddressErr, rules.landlordAddress);
+    const v3 = validateField(tenantNameEl,      tenantNameErr,      rules.tenantName);
+    const v4 = validateField(propertyAddressEl, propertyAddressErr, rules.propertyAddress);
+    const v5 = validateField(cityStateZipEl,    cityStateZipErr,    rules.cityStateZip);
+
+    if (!v1 || !v2 || !v3 || !v4 || !v5) {
+      // Scroll to first error
+      const firstInvalid = [landlordNameEl, landlordAddressEl, tenantNameEl, propertyAddressEl, cityStateZipEl]
+        .find((el) => el.classList.contains('border-red-500'));
+      if (firstInvalid) firstInvalid.focus();
+      return false;
     }
+
+    // Notice date
+    if (!data.noticeDate) {
+      const el = document.getElementById('noticeDate');
+      el.focus();
+      el.classList.add('border-red-500');
+      return false;
+    }
+
     if (data.noticeType === 'payOrQuit') {
       if (!data.rentAmount || !data.rentPeriod) {
         alert('Please fill in the rent amount and rent period.');
@@ -538,6 +593,13 @@ This notice is given pursuant to ${statute}.`;
   }
 
   // ── Event listeners ─────────────────────────────────────────────────────
+  // ── onblur validation wiring ────────────────────────────────────────────
+  landlordNameEl.addEventListener('blur', () => validateField(landlordNameEl, landlordNameErr, rules.landlordName));
+  landlordAddressEl.addEventListener('blur', () => validateField(landlordAddressEl, landlordAddressErr, rules.landlordAddress));
+  tenantNameEl.addEventListener('blur', () => validateField(tenantNameEl, tenantNameErr, rules.tenantName));
+  propertyAddressEl.addEventListener('blur', () => validateField(propertyAddressEl, propertyAddressErr, rules.propertyAddress));
+  cityStateZipEl.addEventListener('blur', () => validateField(cityStateZipEl, cityStateZipErr, rules.cityStateZip));
+
   noticeTypeInputs.forEach((inp) => {
     inp.addEventListener('change', () => {
       updateNoticePeriod();
