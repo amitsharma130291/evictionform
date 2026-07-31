@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 64" width="520" height="64" role="img" aria-label="EvictionNoticeGenerator.com logo — dark variant">
+  <title>EvictionNoticeGenerator.com</title>
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════
+       ICON — document with emerald seal (dark bg)
+  ════════════════════════════════════════════ -->
+
+  <!-- Document body — white with slight dark-mode border -->
+  <rect x="2" y="2" width="40" height="52" rx="4" ry="4" fill="#1f2937" stroke="#374151" stroke-width="2"/>
+
+  <!-- Folded corner -->
+  <path d="M32 2 L42 12 L32 12 Z" fill="#111827" stroke="#374151" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M32 2 L42 12" fill="none" stroke="#374151" stroke-width="2"/>
+
+  <!-- Document lines — muted on dark -->
+  <line x1="9" y1="22" x2="35" y2="22" stroke="#4b5563" stroke-width="2" stroke-linecap="round"/>
+  <line x1="9" y1="30" x2="35" y2="30" stroke="#4b5563" stroke-width="2" stroke-linecap="round"/>
+  <line x1="9" y1="38" x2="28" y2="38" stroke="#4b5563" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Emerald seal — same brand color, full brightness on dark -->
+  <circle cx="38" cy="50" r="12" fill="#059669"/>
+
+  <!-- Checkmark -->
+  <polyline points="32,50 36,54 44,46" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- ═══════════════════════════════════════════
+       WORDMARK — white text on dark
+  ════════════════════════════════════════════ -->
+
+  <!-- "Eviction" — white -->
+  <text
+    x="68"
+    y="42"
+    font-family="'Sora', 'Inter', system-ui, sans-serif"
+    font-weight="700"
+    font-size="28"
+    letter-spacing="-0.5"
+    fill="#ffffff"
+  >Eviction</text>
+
+  <!-- "Notice" — emerald (same token, pops on dark) -->
+  <text
+    x="221"
+    y="42"
+    font-family="'Sora', 'Inter', system-ui, sans-serif"
+    font-weight="700"
+    font-size="28"
+    letter-spacing="-0.5"
+    fill="#059669"
+  >Notice</text>
+
+  <!-- "Generator" — white -->
+  <text
+    x="330"
+    y="42"
+    font-family="'Sora', 'Inter', system-ui, sans-serif"
+    font-weight="700"
+    font-size="28"
+    letter-spacing="-0.5"
+    fill="#ffffff"
+  >Generator</text>
+
+  <!-- ".com" suffix — muted gray -->
+  <text
+    x="492"
+    y="42"
+    font-family="'Sora', 'Inter', system-ui, sans-serif"
+    font-weight="400"
+    font-size="14"
+    fill="#9ca3af"
+  >.com</text>
+</svg>
