@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import TrustSignals from '../components/TrustSignals.astro';
+import FormTeaser from '../components/FormTeaser.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<Base
+  title="Free Eviction Notice Generator | EvictionForm"
+  description="Generate a free, state-compliant eviction notice in minutes. Download as PDF for $14.99. Covers all 50 US states."
+>
+  <Nav />
+  <main>
+    <Hero />
+    <HowItWorks />
+    <TrustSignals />
+    <FormTeaser />
+  </main>
+  <Footer />
+</Base>

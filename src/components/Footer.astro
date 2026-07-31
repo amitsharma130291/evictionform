@@ -1,0 +1,50 @@
+---
+// Footer.astro — Simple footer with links and copyright
+---
+
+<footer class="bg-neutral-900 border-t border-neutral-800 mt-section-y">
+  <div class="mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-8 max-w-layout">
+    <!-- Brand -->
+    <a
+      href="/"
+      class="font-heading text-body-base font-bold text-white hover:text-brand-cta transition-colors duration-200 no-underline"
+    >
+      EvictionForm
+    </a>
+
+    <!-- Links -->
+    <nav aria-label="Footer navigation">
+      <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 list-none m-0 p-0">
+        <li>
+          <a
+            href="/privacy"
+            class="font-body text-small text-neutral-400 hover:text-white transition-colors duration-200 no-underline"
+          >
+            Privacy Policy
+          </a>
+        </li>
+        <li>
+          <a
+            href="/terms"
+            class="font-body text-small text-neutral-400 hover:text-white transition-colors duration-200 no-underline"
+          >
+            Terms of Service
+          </a>
+        </li>
+        <li>
+          <a
+            href="/contact"
+            class="font-body text-small text-neutral-400 hover:text-white transition-colors duration-200 no-underline"
+          >
+            Contact
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Copyright -->
+    <p class="font-body text-caption text-neutral-500 whitespace-nowrap">
+      &copy; 2026 EvictionForm. Not legal advice.
+    </p>
+  </div>
+</footer>

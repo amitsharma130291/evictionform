@@ -1,0 +1,67 @@
+---
+// HowItWorks.astro — 3-step card section
+const steps = [
+  {
+    number: "1",
+    title: "Choose Your State",
+    description:
+      "Select the state where the rental property is located. Our templates automatically adjust to meet each state's specific legal requirements.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+  {
+    number: "2",
+    title: "Fill In the Details",
+    description:
+      "Enter tenant information, the reason for eviction, and the notice period. Our guided form ensures you don't miss any required details.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+  {
+    number: "3",
+    title: "Download Your PDF",
+    description:
+      "Get a court-ready, attorney-reviewed eviction notice as a professionally formatted PDF — ready to serve your tenant immediately.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+];
+---
+
+<section class="py-section-y bg-brand-bg" aria-labelledby="how-it-works-heading">
+  <div class="mx-auto max-w-layout px-6">
+    <!-- Section header -->
+    <div class="text-center mb-12">
+      <h2
+        id="how-it-works-heading"
+        class="font-heading text-h2 font-semibold text-brand-heading leading-[1.3] tracking-[-0.01em] mb-3"
+      >
+        How It Works
+      </h2>
+      <p class="font-body text-body-lg text-brand-muted leading-[1.7] max-w-md mx-auto">
+        Three simple steps to a legally valid eviction notice.
+      </p>
+    </div>
+
+    <!-- Step cards grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {steps.map((step) => (
+        <div
+          class="group relative flex flex-col gap-4 p-card-pad bg-brand-surface border border-brand-border rounded-lg shadow-sm hover:shadow-card-hover transition-shadow duration-200 ease-in-out"
+        >
+          <!-- Step number badge -->
+          <div class="flex items-center justify-center w-10 h-10 bg-brand-cta-light text-brand-cta rounded-md font-heading text-h4 font-bold">
+            {step.number}
+          </div>
+
+          <!-- Step content -->
+          <div class="flex flex-col gap-2">
+            <h3 class="font-heading text-h3 font-semibold text-brand-heading">
+              {step.title}
+            </h3>
+            <p class="font-body text-body-base text-brand-body">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
