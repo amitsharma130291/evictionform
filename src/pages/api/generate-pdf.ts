@@ -146,7 +146,7 @@ export const POST: APIRoute = async ({ request }) => {
           .fontSize(8)
           .fillColor('#9CA3AF')
           .text(
-            'EvictionForm.com \u2014 Template only. Verify all requirements with an attorney before serving.',
+            'EvictionNoticeGenerator.com — Template only. Verify all requirements with an attorney before serving.',
             72,
             doc.page.height - 40,
             { align: 'center', width: doc.page.width - 144 }
