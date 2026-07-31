@@ -1,95 +1,32 @@
 ---
-// FormTeaser.astro — Blurred/locked form preview with download CTA
+// FormTeaser.astro — Clean CTA section pointing to /generate
 ---
 
-<section id="form-teaser" class="py-section-y bg-brand-bg" aria-labelledby="form-teaser-heading">
-  <div class="mx-auto max-w-content px-6">
-    <div class="text-center mb-8">
-      <h2
-        id="form-teaser-heading"
-        class="font-heading text-h2 font-semibold text-brand-heading leading-[1.3] tracking-[-0.01em] mb-3"
-      >
-        Your Eviction Notice is Ready
-      </h2>
-      <p class="font-body text-body-base text-brand-muted">
-        Preview your completed eviction notice below. Download the PDF to get your court-ready document.
-      </p>
+<section id="get-started" class="py-section-y bg-brand-surface-alt" aria-labelledby="get-started-heading">
+  <div class="mx-auto max-w-content px-6 text-center">
+    <h2
+      id="get-started-heading"
+      class="font-heading text-h2 font-semibold text-brand-heading mb-4"
+    >
+      Generate Your Eviction Notice — Free
+    </h2>
+    <p class="font-body text-body-lg text-brand-body mb-6 max-w-lg mx-auto">
+      Answer a few questions about your situation. We'll generate a state-compliant eviction notice you can download as a PDF instantly.
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-4 mb-8 font-body text-small text-brand-muted">
+      <span>✓ All 50 states</span>
+      <span>✓ State-specific notice periods</span>
+      <span>✓ Instant PDF download</span>
+      <span>✓ 100% free</span>
     </div>
-
-    <!-- Form preview card with blur overlay -->
-    <div class="relative bg-brand-surface border border-brand-border rounded-xl shadow-lg overflow-hidden">
-
-      <!-- Blurred form mockup -->
-      <div class="blur-sm pointer-events-none select-none p-8 space-y-5" aria-hidden="true">
-        <!-- Mock form fields -->
-        <div>
-          <div class="h-4 w-40 bg-neutral-200 rounded mb-2"></div>
-          <div class="h-10 w-full bg-neutral-100 rounded border border-brand-border"></div>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <div class="h-4 w-24 bg-neutral-200 rounded mb-2"></div>
-            <div class="h-10 w-full bg-neutral-100 rounded border border-brand-border"></div>
-          </div>
-          <div>
-            <div class="h-4 w-28 bg-neutral-200 rounded mb-2"></div>
-            <div class="h-10 w-full bg-neutral-100 rounded border border-brand-border"></div>
-          </div>
-        </div>
-        <div>
-          <div class="h-4 w-52 bg-neutral-200 rounded mb-2"></div>
-          <div class="h-10 w-full bg-neutral-100 rounded border border-brand-border"></div>
-        </div>
-        <div>
-          <div class="h-4 w-36 bg-neutral-200 rounded mb-2"></div>
-          <div class="h-24 w-full bg-neutral-100 rounded border border-brand-border"></div>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <div class="h-4 w-20 bg-neutral-200 rounded mb-2"></div>
-            <div class="h-10 w-full bg-neutral-100 rounded border border-brand-border"></div>
-          </div>
-          <div>
-            <div class="h-4 w-32 bg-neutral-200 rounded mb-2"></div>
-            <div class="h-10 w-full bg-neutral-100 rounded border border-brand-border"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Lock overlay -->
-      <div class="absolute inset-0 flex flex-col items-center justify-center bg-brand-surface/80 backdrop-blur-[2px] p-8">
-        <!-- Lock icon -->
-        <div class="flex items-center justify-center w-14 h-14 bg-brand-cta-light text-brand-cta rounded-full mb-5">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-            <rect x="5" y="13" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.75"/>
-            <path d="M9 13V9a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-          </svg>
-        </div>
-
-        <p class="font-heading text-h3 font-semibold text-brand-heading text-center mb-2">
-          Your eviction notice is ready
-        </p>
-        <p class="font-body text-body-base text-brand-muted text-center mb-6 max-w-xs">
-          Pay $14.99 to download your state-compliant PDF — court-ready and attorney-reviewed.
-        </p>
-
-        <!-- TODO: Dodo Payments integration -->
-        <button
-          class="inline-flex items-center justify-center gap-2 px-btn-x py-btn-y bg-brand-cta hover:bg-brand-cta-dark text-white font-heading text-label font-semibold rounded-md shadow-md hover:shadow-lg transition-colors transition-shadow duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-brand-cta focus:ring-offset-2"
-          type="button"
-          aria-label="Download PDF for $14.99"
-        >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path d="M9 2v10M4.5 7.5L9 12l4.5-4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 14h14" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-          </svg>
-          Download PDF — $14.99
-        </button>
-
-        <p class="font-body text-caption text-brand-subtle mt-4 text-center">
-          One-time payment. Instant delivery. No subscription.
-        </p>
-      </div>
-    </div>
+    <a
+      href="/generate"
+      class="inline-flex items-center gap-2 px-8 py-4 bg-brand-cta hover:bg-brand-cta-dark text-white font-heading text-body-base font-semibold rounded-md shadow-md transition-colors duration-200 no-underline"
+    >
+      Generate Your Free Notice →
+    </a>
+    <p class="font-body text-caption text-brand-subtle mt-4">
+      No signup required. No email needed. Completely free.
+    </p>
   </div>
 </section>

@@ -1,0 +1,569 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { stateData } from '../data/states';
+import '../styles/global.css';
+
+const stateDataJson = JSON.stringify(stateData);
+---
+
+<Base
+  title="Free Eviction Notice Generator | EvictionForm"
+  description="Generate a free, state-compliant eviction notice in minutes. Download as PDF instantly. All 50 US states covered."
+>
+  <Nav />
+  <main class="min-h-screen bg-brand-bg py-10 px-4">
+    <div class="mx-auto max-w-2xl">
+
+      <!-- Progress bar -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between mb-2">
+          <span id="step-label" class="font-heading text-label font-semibold text-brand-cta">Step 1 of 3</span>
+          <span id="step-title-label" class="font-body text-caption text-brand-muted">Notice Type &amp; State</span>
+        </div>
+        <div class="w-full bg-brand-border rounded-full h-2">
+          <div
+            id="progress-bar"
+            class="bg-brand-cta rounded-full h-2 transition-all duration-300"
+            style="width: 33.3%"
+          ></div>
+        </div>
+      </div>
+
+      <!-- ─── STEP 1: Notice type + state ─────────────────────────────── -->
+      <div id="step-1" class="bg-brand-surface border border-brand-border rounded-xl shadow-sm p-8">
+        <h1 class="font-heading text-h2 font-semibold text-brand-heading mb-2">
+          What type of eviction notice do you need?
+        </h1>
+        <p class="font-body text-body-base text-brand-muted mb-6">
+          Select the notice type that matches your situation, then choose your state.
+        </p>
+
+        <!-- Notice type cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6" role="radiogroup" aria-label="Notice type">
+          <label class="cursor-pointer notice-card-label">
+            <input type="radio" name="noticeType" value="payOrQuit" class="sr-only" checked>
+            <div class="notice-card border-2 border-brand-border rounded-lg p-4 transition-all duration-200 hover:border-brand-cta hover:bg-brand-cta-light">
+              <div class="text-2xl mb-2">💰</div>
+              <h3 class="font-heading text-body-base font-semibold text-brand-heading">Pay or Quit</h3>
+              <p class="font-body text-small text-brand-muted mt-1">Tenant has not paid rent</p>
+            </div>
+          </label>
+
+          <label class="cursor-pointer notice-card-label">
+            <input type="radio" name="noticeType" value="unconditionalQuit" class="sr-only">
+            <div class="notice-card border-2 border-brand-border rounded-lg p-4 transition-all duration-200 hover:border-brand-cta hover:bg-brand-cta-light">
+              <div class="text-2xl mb-2">🚫</div>
+              <h3 class="font-heading text-body-base font-semibold text-brand-heading">Unconditional Quit</h3>
+              <p class="font-body text-small text-brand-muted mt-1">Serious or repeated lease violations</p>
+            </div>
+          </label>
+
+          <label class="cursor-pointer notice-card-label">
+            <input type="radio" name="noticeType" value="nonRenewal" class="sr-only">
+            <div class="notice-card border-2 border-brand-border rounded-lg p-4 transition-all duration-200 hover:border-brand-cta hover:bg-brand-cta-light">
+              <div class="text-2xl mb-2">📋</div>
+              <h3 class="font-heading text-body-base font-semibold text-brand-heading">Non-Renewal of Lease</h3>
+              <p class="font-body text-small text-brand-muted mt-1">Lease is ending, not being renewed</p>
+            </div>
+          </label>
+
+          <label class="cursor-pointer notice-card-label">
+            <input type="radio" name="noticeType" value="noticeToVacate" class="sr-only">
+            <div class="notice-card border-2 border-brand-border rounded-lg p-4 transition-all duration-200 hover:border-brand-cta hover:bg-brand-cta-light">
+              <div class="text-2xl mb-2">🏠</div>
+              <h3 class="font-heading text-body-base font-semibold text-brand-heading">Notice to Vacate</h3>
+              <p class="font-body text-small text-brand-muted mt-1">Month-to-month tenancy termination</p>
+            </div>
+          </label>
+        </div>
+
+        <!-- State selector -->
+        <div class="mb-4">
+          <label for="state-select" class="block font-heading text-label font-semibold text-brand-heading mb-2">
+            Select your state
+          </label>
+          <select
+            id="state-select"
+            class="w-full border border-brand-border rounded-md px-4 py-3 font-body text-body-base text-brand-heading bg-white focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta transition-colors duration-200"
+          >
+            <option value="">-- Choose a state --</option>
+          </select>
+        </div>
+
+        <!-- Dynamic notice period info -->
+        <div
+          id="notice-period-info"
+          class="hidden bg-brand-cta-light border border-brand-cta rounded-md px-4 py-3 mb-6"
+        >
+          <p class="font-body text-body-base text-brand-heading" id="notice-period-text"></p>
+        </div>
+
+        <button
+          id="step1-next"
+          type="button"
+          class="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-cta hover:bg-brand-cta-dark text-white font-heading text-body-base font-semibold rounded-md shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-cta focus:ring-offset-2"
+        >
+          Next: Party Information →
+        </button>
+      </div>
+
+      <!-- ─── STEP 2: Party info ────────────────────────────────────────── -->
+      <div id="step-2" class="hidden bg-brand-surface border border-brand-border rounded-xl shadow-sm p-8">
+        <h2 class="font-heading text-h2 font-semibold text-brand-heading mb-2">Party &amp; Property Information</h2>
+        <p class="font-body text-body-base text-brand-muted mb-6">Fill in the details for your eviction notice.</p>
+
+        <div class="space-y-5">
+          <!-- Landlord info -->
+          <div>
+            <h3 class="font-heading text-label font-semibold text-brand-heading mb-3 pb-1 border-b border-brand-border">
+              Landlord / Property Owner
+            </h3>
+            <div class="grid grid-cols-1 gap-4">
+              <div>
+                <label for="landlordName" class="block font-body text-small font-medium text-brand-heading mb-1">Full Name *</label>
+                <input type="text" id="landlordName" placeholder="John Smith" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+              </div>
+              <div>
+                <label for="landlordAddress" class="block font-body text-small font-medium text-brand-heading mb-1">Mailing Address *</label>
+                <input type="text" id="landlordAddress" placeholder="123 Main St, City, State ZIP" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+              </div>
+            </div>
+          </div>
+
+          <!-- Tenant info -->
+          <div>
+            <h3 class="font-heading text-label font-semibold text-brand-heading mb-3 pb-1 border-b border-brand-border">
+              Tenant
+            </h3>
+            <div>
+              <label for="tenantName" class="block font-body text-small font-medium text-brand-heading mb-1">Full Name(s) *</label>
+              <input type="text" id="tenantName" placeholder="Jane Doe and John Doe" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+            </div>
+          </div>
+
+          <!-- Property info -->
+          <div>
+            <h3 class="font-heading text-label font-semibold text-brand-heading mb-3 pb-1 border-b border-brand-border">
+              Rental Property
+            </h3>
+            <div class="grid grid-cols-1 gap-4">
+              <div>
+                <label for="propertyAddress" class="block font-body text-small font-medium text-brand-heading mb-1">Street Address *</label>
+                <input type="text" id="propertyAddress" placeholder="456 Oak Ave, Apt 2B" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+              </div>
+              <div>
+                <label for="cityStateZip" class="block font-body text-small font-medium text-brand-heading mb-1">City, State, ZIP *</label>
+                <input type="text" id="cityStateZip" placeholder="Austin, TX 78701" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+              </div>
+            </div>
+          </div>
+
+          <!-- Notice date -->
+          <div>
+            <label for="noticeDate" class="block font-body text-small font-medium text-brand-heading mb-1">Notice Date *</label>
+            <input type="date" id="noticeDate" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+          </div>
+
+          <!-- Pay or Quit fields -->
+          <div id="payOrQuit-fields" class="space-y-4">
+            <div>
+              <label for="rentAmount" class="block font-body text-small font-medium text-brand-heading mb-1">Amount of Rent Owed *</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-brand-muted font-body">$</span>
+                <input type="number" id="rentAmount" placeholder="1500.00" step="0.01" min="0" class="field w-full border border-brand-border rounded-md pl-8 pr-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+              </div>
+            </div>
+            <div>
+              <label for="rentPeriod" class="block font-body text-small font-medium text-brand-heading mb-1">Rent Period *</label>
+              <input type="text" id="rentPeriod" placeholder="July 2024" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+            </div>
+            <div>
+              <label for="rentDueDate" class="block font-body text-small font-medium text-brand-heading mb-1">Date Rent Was Due</label>
+              <input type="date" id="rentDueDate" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+            </div>
+          </div>
+
+          <!-- Unconditional quit fields -->
+          <div id="unconditionalQuit-fields" class="space-y-4 hidden">
+            <div>
+              <label for="violationReason" class="block font-body text-small font-medium text-brand-heading mb-1">Reason for Notice *</label>
+              <textarea id="violationReason" rows="3" placeholder="Describe the lease violation(s)..." class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta resize-none"></textarea>
+            </div>
+          </div>
+
+          <!-- Vacate date fields (nonRenewal / noticeToVacate) -->
+          <div id="vacateDate-fields" class="space-y-4 hidden">
+            <div>
+              <label for="vacateByDate" class="block font-body text-small font-medium text-brand-heading mb-1">Vacate By Date *</label>
+              <input type="date" id="vacateByDate" class="field w-full border border-brand-border rounded-md px-4 py-2.5 font-body text-body-base text-brand-heading focus:outline-none focus:ring-2 focus:ring-brand-cta focus:border-brand-cta">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-3 mt-6">
+          <button
+            id="step2-back"
+            type="button"
+            class="flex-1 inline-flex items-center justify-center px-6 py-3 border border-brand-border bg-white hover:bg-neutral-50 text-brand-body font-heading text-body-base font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-cta focus:ring-offset-2"
+          >
+            ← Back
+          </button>
+          <button
+            id="step2-next"
+            type="button"
+            class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-cta hover:bg-brand-cta-dark text-white font-heading text-body-base font-semibold rounded-md shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-cta focus:ring-offset-2"
+          >
+            Preview Notice →
+          </button>
+        </div>
+      </div>
+
+      <!-- ─── STEP 3: Preview + download ───────────────────────────────── -->
+      <div id="step-3" class="hidden bg-brand-surface border border-brand-border rounded-xl shadow-sm p-8">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-heading text-h2 font-semibold text-brand-heading">Your Eviction Notice</h2>
+          <span class="inline-flex items-center gap-1 bg-brand-cta-light text-brand-cta font-heading text-label font-semibold px-3 py-1 rounded-full">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Ready
+          </span>
+        </div>
+
+        <!-- HTML preview -->
+        <div
+          id="notice-preview"
+          class="border border-brand-border rounded-lg p-6 mb-6 bg-white font-body text-body-base text-brand-heading leading-relaxed text-sm"
+          style="font-family: Georgia, serif;"
+        >
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Download + edit buttons -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button
+            id="download-pdf"
+            type="button"
+            class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-cta hover:bg-brand-cta-dark text-white font-heading text-body-base font-semibold rounded-md shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-cta focus:ring-offset-2"
+          >
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M9 2v10M4.5 7.5L9 12l4.5-4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 14h14" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            </svg>
+            <span id="download-btn-text">Download PDF — Free</span>
+          </button>
+          <button
+            id="step3-back"
+            type="button"
+            class="flex-1 inline-flex items-center justify-center px-6 py-3 border border-brand-border bg-white hover:bg-neutral-50 text-brand-body font-heading text-body-base font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-cta focus:ring-offset-2"
+          >
+            ← Edit Information
+          </button>
+        </div>
+
+        <p class="font-body text-caption text-brand-subtle mt-4 text-center">
+          For informational purposes only. Not legal advice. Consult an attorney for your specific situation.
+        </p>
+      </div>
+
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .notice-card-label input:checked + .notice-card {
+    border-color: #059669;
+    background-color: #D1FAE5;
+  }
+</style>
+
+<script define:vars={{ stateDataJson }}>
+  // ── State data ──────────────────────────────────────────────────────────
+  const STATE_DATA = JSON.parse(stateDataJson);
+
+  // ── DOM refs ────────────────────────────────────────────────────────────
+  const step1El = document.getElementById('step-1');
+  const step2El = document.getElementById('step-2');
+  const step3El = document.getElementById('step-3');
+  const progressBar = document.getElementById('progress-bar');
+  const stepLabel = document.getElementById('step-label');
+  const stepTitleLabel = document.getElementById('step-title-label');
+
+  const noticeTypeInputs = document.querySelectorAll('input[name="noticeType"]');
+  const stateSelect = document.getElementById('state-select');
+  const noticePeriodInfo = document.getElementById('notice-period-info');
+  const noticePeriodText = document.getElementById('notice-period-text');
+
+  const payOrQuitFields = document.getElementById('payOrQuit-fields');
+  const unconditionalQuitFields = document.getElementById('unconditionalQuit-fields');
+  const vacateDateFields = document.getElementById('vacateDate-fields');
+
+  const noticePreview = document.getElementById('notice-preview');
+  const downloadBtn = document.getElementById('download-pdf');
+  const downloadBtnText = document.getElementById('download-btn-text');
+
+  let currentStep = 1;
+
+  // ── Populate state dropdown ─────────────────────────────────────────────
+  STATE_DATA.sort((a, b) => a.name.localeCompare(b.name)).forEach((s) => {
+    const opt = document.createElement('option');
+    opt.value = s.code;
+    opt.textContent = s.name;
+    stateSelect.appendChild(opt);
+  });
+
+  // ── Set today's date ────────────────────────────────────────────────────
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  document.getElementById('noticeDate').value = todayStr;
+  document.getElementById('rentDueDate').value = todayStr;
+
+  // ── Helpers ─────────────────────────────────────────────────────────────
+  function getNoticeType() {
+    for (const inp of noticeTypeInputs) {
+      if (inp.checked) return inp.value;
+    }
+    return 'payOrQuit';
+  }
+
+  function getStateData() {
+    const code = stateSelect.value;
+    return STATE_DATA.find((s) => s.code === code) || null;
+  }
+
+  function updateNoticePeriod() {
+    const type = getNoticeType();
+    const sd = getStateData();
+    if (!sd) {
+      noticePeriodInfo.classList.add('hidden');
+      return;
+    }
+    const info = sd.notices[type];
+    const typeLabels = {
+      payOrQuit: 'Pay or Quit',
+      unconditionalQuit: 'Unconditional Quit',
+      nonRenewal: 'Non-Renewal',
+      noticeToVacate: 'Notice to Vacate',
+    };
+    noticePeriodText.textContent = `In ${sd.name}, a ${typeLabels[type]} notice requires ${info.days} day${info.days !== 1 ? 's' : ''} per ${info.statute}.`;
+    noticePeriodInfo.classList.remove('hidden');
+  }
+
+  function showFieldsForType(type) {
+    payOrQuitFields.classList.toggle('hidden', type !== 'payOrQuit');
+    unconditionalQuitFields.classList.toggle('hidden', type !== 'unconditionalQuit');
+    vacateDateFields.classList.toggle('hidden', type !== 'nonRenewal' && type !== 'noticeToVacate');
+  }
+
+  function setStep(n) {
+    currentStep = n;
+    step1El.classList.toggle('hidden', n !== 1);
+    step2El.classList.toggle('hidden', n !== 2);
+    step3El.classList.toggle('hidden', n !== 3);
+
+    const pcts = ['33.3%', '66.6%', '100%'];
+    progressBar.style.width = pcts[n - 1];
+    stepLabel.textContent = `Step ${n} of 3`;
+    const titles = ['Notice Type & State', 'Party Information', 'Preview & Download'];
+    stepTitleLabel.textContent = titles[n - 1];
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function formatDateLong(dateStr) {
+    if (!dateStr) return '';
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const months = [
+      'January','February','March','April','May','June',
+      'July','August','September','October','November','December',
+    ];
+    return `${months[m - 1]} ${d}, ${y}`;
+  }
+
+  function addDays(dateStr, days) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr + 'T00:00:00');
+    d.setDate(d.getDate() + days);
+    return d.toISOString().split('T')[0];
+  }
+
+  function buildPreview(data) {
+    const titleMap = {
+      payOrQuit: 'NOTICE TO PAY RENT OR QUIT',
+      unconditionalQuit: 'UNCONDITIONAL NOTICE TO QUIT',
+      nonRenewal: 'NOTICE OF NON-RENEWAL OF LEASE',
+      noticeToVacate: 'NOTICE TO VACATE',
+    };
+
+    const sd = STATE_DATA.find((s) => s.code === data.state);
+    const info = sd?.notices[data.noticeType];
+    const days = info?.days || 3;
+    const statute = info?.statute || 'applicable state law';
+    const stateName = sd?.name || data.state;
+
+    let body = '';
+    if (data.noticeType === 'payOrQuit') {
+      body = `PLEASE TAKE NOTICE that you are hereby required to pay the sum of $${data.rentAmount} representing rent for the period of ${data.rentPeriod}, which is now due and owing for the premises located at ${data.propertyAddress}, ${data.cityStateZip}, or to quit and deliver up possession of said premises within ${days} days after service of this notice.<br><br>
+If you fail to pay the rent or vacate the premises within ${days} days, legal proceedings will be instituted against you to recover possession of the premises, declare the rental agreement forfeited, and recover all damages and court costs.<br><br>
+This notice is served pursuant to ${statute}.`;
+    } else if (data.noticeType === 'nonRenewal') {
+      body = `PLEASE TAKE NOTICE that your tenancy of the premises located at ${data.propertyAddress}, ${data.cityStateZip} will not be renewed upon expiration of your current lease term. You are hereby required to vacate and surrender possession of the premises on or before ${formatDateLong(data.vacateByDate)}, which is ${days} days from the date of service of this notice.<br><br>
+This notice is given pursuant to ${statute}.`;
+    } else if (data.noticeType === 'unconditionalQuit') {
+      body = `PLEASE TAKE NOTICE that you are hereby required to quit and deliver up possession of the premises located at ${data.propertyAddress}, ${data.cityStateZip} within ${days} days after service of this notice.`;
+      if (data.violationReason) {
+        body += `<br><br>The reason for this notice is: ${data.violationReason}`;
+      }
+      body += `<br><br>This notice is given pursuant to ${statute}.`;
+    } else if (data.noticeType === 'noticeToVacate') {
+      body = `PLEASE TAKE NOTICE that your month-to-month tenancy of the premises located at ${data.propertyAddress}, ${data.cityStateZip} is hereby terminated. You are required to vacate and surrender possession of the premises on or before ${formatDateLong(data.vacateByDate)}, which is ${days} days from the date of service of this notice.<br><br>
+This notice is given pursuant to ${statute}.`;
+    }
+
+    return `
+      <p style="text-align:center;font-weight:bold;text-transform:uppercase;">STATE OF ${stateName.toUpperCase()}</p>
+      <p style="text-align:center;font-weight:bold;font-size:1.1em;text-decoration:underline;text-transform:uppercase;">${titleMap[data.noticeType]}</p>
+      <br>
+      <p>Date: ${formatDateLong(data.noticeDate)}</p>
+      <br>
+      <p>To: ${data.tenantName}</p>
+      <p>${data.propertyAddress}</p>
+      <p>${data.cityStateZip}</p>
+      <br>
+      <p>${body}</p>
+      <br><br><br>
+      <p>Dated this ${formatDateLong(data.noticeDate)}.</p>
+      <br><br>
+      <p>_______________________________</p>
+      <p>${data.landlordName}</p>
+      <p>Landlord / Property Owner</p>
+      <p>${data.landlordAddress}</p>
+      <br><br>
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:1em 0;">
+      <p style="color:#9CA3AF;font-size:0.75em;text-align:center;">Generated by EvictionForm.com — For informational purposes only. Not legal advice.</p>
+    `;
+  }
+
+  function collectFormData() {
+    return {
+      noticeType: getNoticeType(),
+      state: stateSelect.value,
+      landlordName: document.getElementById('landlordName').value.trim(),
+      landlordAddress: document.getElementById('landlordAddress').value.trim(),
+      tenantName: document.getElementById('tenantName').value.trim(),
+      propertyAddress: document.getElementById('propertyAddress').value.trim(),
+      cityStateZip: document.getElementById('cityStateZip').value.trim(),
+      noticeDate: document.getElementById('noticeDate').value,
+      rentAmount: document.getElementById('rentAmount').value,
+      rentPeriod: document.getElementById('rentPeriod').value.trim(),
+      rentDueDate: document.getElementById('rentDueDate').value,
+      violationReason: document.getElementById('violationReason').value.trim(),
+      vacateByDate: document.getElementById('vacateByDate').value,
+    };
+  }
+
+  function validateStep1() {
+    if (!stateSelect.value) {
+      alert('Please select your state.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep2() {
+    const data = collectFormData();
+    const required = ['landlordName', 'landlordAddress', 'tenantName', 'propertyAddress', 'cityStateZip', 'noticeDate'];
+    for (const id of required) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.focus();
+        el.classList.add('border-brand-error');
+        alert('Please fill in all required fields.');
+        return false;
+      }
+      el.classList.remove('border-brand-error');
+    }
+    if (data.noticeType === 'payOrQuit') {
+      if (!data.rentAmount || !data.rentPeriod) {
+        alert('Please fill in the rent amount and rent period.');
+        return false;
+      }
+    }
+    if (data.noticeType === 'unconditionalQuit' && !data.violationReason) {
+      alert('Please describe the reason for this notice.');
+      return false;
+    }
+    if ((data.noticeType === 'nonRenewal' || data.noticeType === 'noticeToVacate') && !data.vacateByDate) {
+      // Auto-calculate if missing
+      const sd = STATE_DATA.find((s) => s.code === data.state);
+      const days = sd?.notices[data.noticeType]?.days || 30;
+      document.getElementById('vacateByDate').value = addDays(data.noticeDate, days);
+    }
+    return true;
+  }
+
+  async function downloadPDF() {
+    const data = collectFormData();
+    downloadBtnText.textContent = 'Generating PDF…';
+    downloadBtn.disabled = true;
+
+    try {
+      const response = await fetch('/api/generate-pdf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error('PDF generation failed');
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `eviction-notice-${data.state}-${Date.now()}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      downloadBtnText.textContent = '✓ Downloaded!';
+      setTimeout(() => { downloadBtnText.textContent = 'Download PDF — Free'; }, 3000);
+    } catch (err) {
+      console.error(err);
+      downloadBtnText.textContent = 'Error — Try Again';
+      alert('There was an error generating the PDF. Please try again.');
+    } finally {
+      downloadBtn.disabled = false;
+    }
+  }
+
+  // ── Event listeners ─────────────────────────────────────────────────────
+  noticeTypeInputs.forEach((inp) => {
+    inp.addEventListener('change', () => {
+      updateNoticePeriod();
+      showFieldsForType(inp.value);
+    });
+  });
+
+  stateSelect.addEventListener('change', updateNoticePeriod);
+
+  document.getElementById('step1-next').addEventListener('click', () => {
+    if (validateStep1()) setStep(2);
+  });
+
+  document.getElementById('step2-back').addEventListener('click', () => setStep(1));
+  document.getElementById('step3-back').addEventListener('click', () => setStep(2));
+
+  document.getElementById('step2-next').addEventListener('click', () => {
+    if (validateStep2()) {
+      const data = collectFormData();
+      noticePreview.innerHTML = buildPreview(data);
+      setStep(3);
+    }
+  });
+
+  downloadBtn.addEventListener('click', downloadPDF);
+
+  // ── Init ────────────────────────────────────────────────────────────────
+  showFieldsForType('payOrQuit');
+</script>
