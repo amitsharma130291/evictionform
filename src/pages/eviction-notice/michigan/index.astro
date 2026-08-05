@@ -1,11 +1,19 @@
 ---
 import Base from '../../../layouts/Base.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
 const title = "Michigan Eviction Notice: Types, Rules & Free Generator (2024)";
 const description = "Michigan landlords: get the right eviction notice the first time. Updated for the 7-day non-payment notice requirement. Covers Demand for Possession forms, service rules, and what voids your notice.";
 const canonicalUrl = "https://www.evictionnoticegenerator.com/eviction-notice/michigan/";
 ---
 <Base {title} {description} {canonicalUrl}>
+  <Nav />
   <main class="bg-brand-bg py-section-y">
+    <div class="bg-white border-b border-brand-border">
+      <div class="max-w-content mx-auto px-6 py-8">
+        <span class="inline-block bg-brand-cta text-white text-label font-heading font-semibold uppercase tracking-widest px-3 py-1 rounded-sm mb-4">MICHIGAN EVICTION LAW</span>
+      </div>
+    </div>
     <article class="max-w-content mx-auto px-6">
       <h1 class="font-heading text-display-xl font-bold text-brand-heading mb-6">Michigan Eviction Notice: The Complete Landlord Guide</h1>
 
@@ -177,4 +185,5 @@ const canonicalUrl = "https://www.evictionnoticegenerator.com/eviction-notice/mi
       <p class="text-caption text-brand-muted text-center mt-8">This content is for informational purposes only and does not constitute legal advice.</p>
     </article>
   </main>
+  <Footer />
 </Base>

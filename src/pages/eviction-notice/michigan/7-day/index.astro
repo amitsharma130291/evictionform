@@ -1,11 +1,19 @@
 ---
 import Base from '../../../../layouts/Base.astro';
+import Nav from '../../../../components/Nav.astro';
+import Footer from '../../../../components/Footer.astro';
 const title = "Michigan 7-Day Notice to Quit: Landlord Requirements & Mistakes to Avoid";
 const description = "Serving a Michigan 7-day notice for non-payment of rent? Know what MCL 554.134(2) requires, how to count the days, valid service methods under MCL 600.5718, and the partial payment trap that restarts the clock.";
 const canonicalUrl = "https://www.evictionnoticegenerator.com/eviction-notice/michigan/7-day/";
 ---
 <Base {title} {description} {canonicalUrl}>
+  <Nav />
   <main class="bg-brand-bg py-section-y">
+    <div class="bg-white border-b border-brand-border">
+      <div class="max-w-content mx-auto px-6 py-8">
+        <span class="inline-block bg-brand-cta text-white text-label font-heading font-semibold uppercase tracking-widest px-3 py-1 rounded-sm mb-4">MICHIGAN EVICTION LAW</span>
+      </div>
+    </div>
     <article class="max-w-content mx-auto px-6">
       <h1 class="font-heading text-display-xl font-bold text-brand-heading mb-6">Michigan 7-Day Notice to Quit: What Landlords Must Get Right</h1>
 
@@ -171,4 +179,5 @@ const canonicalUrl = "https://www.evictionnoticegenerator.com/eviction-notice/mi
       <p class="text-caption text-brand-muted text-center mt-8">This content is for informational purposes only and does not constitute legal advice.</p>
     </article>
   </main>
+  <Footer />
 </Base>

@@ -1,11 +1,19 @@
 ---
 import Base from '../../../../layouts/Base.astro';
+import Nav from '../../../../components/Nav.astro';
+import Footer from '../../../../components/Footer.astro';
 const title = "Michigan Demand for Possession: DC-100a Form, Requirements & Process";
 const description = "Michigan uses different court-approved notices depending on why possession is sought. DC 100a is for nonpayment of rent; DC 100c covers applicable termination and recovery-of-possession situations. Learn required statutory language, service methods, and how Michigan's process differs from other states.";
 const canonicalUrl = "https://www.evictionnoticegenerator.com/eviction-notice/michigan/demand-for-possession/";
 ---
 <Base {title} {description} {canonicalUrl}>
+  <Nav />
   <main class="bg-brand-bg py-section-y">
+    <div class="bg-white border-b border-brand-border">
+      <div class="max-w-content mx-auto px-6 py-8">
+        <span class="inline-block bg-brand-cta text-white text-label font-heading font-semibold uppercase tracking-widest px-3 py-1 rounded-sm mb-4">MICHIGAN EVICTION LAW</span>
+      </div>
+    </div>
     <article class="max-w-content mx-auto px-6">
       <h1 class="font-heading text-display-xl font-bold text-brand-heading mb-6">Michigan Demand for Possession: What It Is and How to Get It Right</h1>
 
@@ -165,4 +173,5 @@ const canonicalUrl = "https://www.evictionnoticegenerator.com/eviction-notice/mi
       <p class="text-caption text-brand-muted text-center mt-8">This content is for informational purposes only and does not constitute legal advice.</p>
     </article>
   </main>
+  <Footer />
 </Base>

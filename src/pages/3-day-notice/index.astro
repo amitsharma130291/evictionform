@@ -1,11 +1,19 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
 const title = "3 Day Notice: State Laws, Requirements & Free Template (2025)";
 const description = "A 3-day notice means different things depending on your state. Learn what yours actually requires — day counting rules, weekend exclusions, service methods — and generate a compliant notice free.";
 const canonicalUrl = "https://www.evictionnoticegenerator.com/3-day-notice/";
 ---
 <Base {title} {description} {canonicalUrl}>
+  <Nav />
   <main class="bg-brand-bg py-section-y">
+    <div class="bg-white border-b border-brand-border">
+      <div class="max-w-content mx-auto px-6 py-8">
+        <span class="inline-block bg-brand-cta text-white text-label font-heading font-semibold uppercase tracking-widest px-3 py-1 rounded-sm mb-4">LANDLORD GUIDE</span>
+      </div>
+    </div>
     <article class="max-w-content mx-auto px-6">
       <h1 class="font-heading text-display-xl font-bold text-brand-heading mb-6">What a 3-Day Notice Actually Means (And Why Your State Changes Everything)</h1>
 
@@ -173,4 +181,5 @@ const canonicalUrl = "https://www.evictionnoticegenerator.com/3-day-notice/";
       <p class="text-caption text-brand-muted text-center mt-8">This content is for informational purposes only and does not constitute legal advice.</p>
     </article>
   </main>
+  <Footer />
 </Base>
